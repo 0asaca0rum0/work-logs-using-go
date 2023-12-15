@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full w-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>htmx and Tailwind Example</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Include htmx -->
+    <script defer src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"></script>
+</head>
+
+<body class="w-full bg-gray-100 p-8 max-h-full">
+    <!-- Your content goes here -->
+    <div class="h-full w-full max-h-full  mx-auto bg-white flex flex-row justify-evenly items-center pb-6">
+        
+
+        <!-- Trigger an htmx request on button click -->
+    
+
+        <!-- Display the result here -->
+        <div  class="h-full max-h-full overflow-auto w-1/2 mt-4 flex flex-col h-full ">
+            <h1 class="text-2xl font-bold mb-4">work logs </h1>
+            <ul class="flex flex-col  items-center gap-1 max-h-80 overflow-auto rounded-lg border-2  " id="skoni" >
+            {{range .pages}}
+           
+
+                <li class="shadow-md text-center p-2 w-full rounded-lg">{{.Title }} - {{.User}} </li>
+            
+            {{end}}
+            </ul>
+        </div>
+        <div>
+                                <form hx-post="/add" hx-target="#skoni" class="p-4 mt-4 flex flex-col justify-center items-center w-full  gap-4"
+                                    hx-swap="afterbegin">
+                                    <div class="flex flex-row justify-center gap-2  items-center w-full">
+                                        <label for="title"> title:</label>
+                                        <input type="text" name="title" id="title" class="rounded-lg border-blue-500 border-2 " required>
+                                    </div>
+                                    <div class="flex flex-row justify-center gap-2  items-center w-full">
+                                        <label for="user"> User:</label>
+                                        <input type="text" name="user" id="user" class="rounded-lg border-blue-500 border-2 " required>
+                                    </div>
+                                    <button type="submit" value="submit" hx-trigger="submit "
+                                        class="bg-blue-500 text-white p-2  rounded-lg cursor-pointer hover:bg-white hover:text-black hover\:border-blue-100 border-2 transition-all">Add</button>
+                                
+                                </form>
+        </div>
+    </div>
+    <style>
+        /* global.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+    </style>
+</body>
+
+</html>
