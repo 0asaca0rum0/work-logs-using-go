@@ -29,10 +29,10 @@ func main() {
 		tmp.Execute(w, Pages)
 	}
 	h2 := func(w http.ResponseWriter, r *http.Request) {
-		title := r.PostFormValue("title")
-		user := r.PostFormValue("user")
+		title := template.HTMLEscapeString(r.PostFormValue("title"))
+		user := template.HTMLEscapeString(r.PostFormValue("user"))
 		html := fmt.Sprintf(`<li class="shadow-md text-center p-2 w-full rounded-lg">%s - %s </li>`, title, user)
-		temp , _ :=  template.New("t").Parse(html)
+		temp, _ := template.New("t").Parse(html)
 		temp.Execute(w, nil)
 	}
 	http.HandleFunc("/", h1)
